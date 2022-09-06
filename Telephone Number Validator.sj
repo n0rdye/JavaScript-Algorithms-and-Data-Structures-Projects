@@ -1,32 +1,77 @@
 function telephoneCheck(str) {
-  var paren=false,reg=false,size=false;
-  var s = str.split(/[ -()]+/);
-  s = dell(s);
-  var sall = str.split('');
-  var par = parf(sall);
-  if(par=='()'){
-    paren=true;
-  }
-  else if(par!='()'){
-    paren=false;
-  }
-  if(s.length == 3){
-    size=true;
-  }
-  else if(s.length >= 4){
-    size = true;
-    if(s[0]!=1){
-      reg=false;
+  var s = str.split('');
+  var nums = checknums(str);
+  if(nums.length<=12&&nums.length>=10&&checkseps(str)){
+    if(nums.length > 10&&s.indexOf('(')!=-1){
+      return both(str,nums);
     }
-    else {
-      reg = true;
-    };
+    else if(s.indexOf('(')!=-1||s.indexOf(')')!=-1){
+      if(s.indexOf(')')!=s.length-1){
+          return parenthesis(s);
+      }
+      else {return false;}
+    }
+    else if(nums.length > 10){
+      return regional(str,nums);
+    }
+    else{
+      return true;
+    }
   }
-  else if(s.length <= 2){
-    size = false;
+  else{
+    return false;
   }
-  // return 'parenthesis='+paren+' correct size='+size+' correct region='+reg
-  if(paren||size||reg){
+}
+
+function both(str,nums){
+  var s = str.replaceAll('(', '$').replaceAll(' ', '$').replaceAll(' ', '$').split('$');
+  if(nums.length<12&&s[0]=='1'){
+    return parenthesis(str);
+  }
+  else{
+    return false;
+  }
+}
+
+function checknums(str){
+  var nums='';
+  for(var i=0;i<str.length;i++){
+    if(!isNaN(str[i])&&str[i]!=' '){
+      nums+=str[i];
+    }
+  }
+  return nums;
+}
+
+function checkseps(str){
+  var count=0;
+  for(var i=0;i<str.length;i++){
+    if(str[i]=='-'){count++}
+  }
+  if(count>2){
+    return false;
+  }
+  else {return true;}
+}
+
+function parenthesis(str){
+  var par ='';
+  for(var i =0;i<str.length;i++){
+    if(str[i]=='('||str[i]==')'){
+      par+=str[i];
+    }
+  }
+  if(par=='()'){
+    return true;
+  }
+  else if (par!='()'){
+    return false;
+  }
+}
+
+function regional(s,nums){
+  var s = s.split(' ');
+  if(nums.length<12&&s[0]=='1'){
     return true;
   }
   else{
@@ -34,22 +79,4 @@ function telephoneCheck(str) {
   }
 }
 
-function parf(sall){
-  var par = '';
-  for(var i=0;i<sall.length;i++){
-    if(sall[i]=='('||sall[i]==')'){
-      par+=sall[i];
-    }
-  }
-  return par;
-}
-
-function dell(s){
-  var s = s
-  if(s.indexOf('') != -1){
-      s.splice(s.indexOf(''),1);  
-  }
-  return s;
-}
-
-console.log(telephoneCheck("1 (555) 555 5555"));
+console.log(telephoneCheck("55 55-55-555-5"));
