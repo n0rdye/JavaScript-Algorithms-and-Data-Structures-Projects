@@ -4,14 +4,14 @@ function telephoneCheck(str) {
   s = dell(s);
   var sall = str.split('');
   var par = parf(sall);
+  if(par=='()'){
+    paren=true;
+  }
+  else if(par!='()'){
+    paren=false;
+  }
   if(s.length == 3){
     size=true;
-    if(par=='()'){
-      paren=true;
-    }
-    else if(par!='()'){
-      paren=false;
-    }
   }
   else if(s.length >= 4){
     size = true;
@@ -25,7 +25,13 @@ function telephoneCheck(str) {
   else if(s.length <= 2){
     size = false;
   }
-  return 'parenthesis='+paren+' correct size='+size+' correct region='+reg
+  // return 'parenthesis='+paren+' correct size='+size+' correct region='+reg
+  if(paren||size||reg){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 function parf(sall){
