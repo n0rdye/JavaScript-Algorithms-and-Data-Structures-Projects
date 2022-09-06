@@ -1,4 +1,4 @@
-function telephoneCheck(str) {
+function telephoneCheck(str) { 
   var s = str.split('');
   var nums = checknums(str);
   if(nums.length<=12&&nums.length>=10&&checkseps(str)){
