@@ -1,2 +1,2 @@
 # JavaScript-Algorithms-and-Data-Structures-Projects
-![fcc](https://user-images.githubusercontent.com/61553305/188734233-9734f22e-c1df-479e-8020-8787a7138920.png)
+![fcca](https://user-images.githubusercontent.com/61553305/188914983-0eeafc89-3ec4-4bdd-af94-05d46e67ec7d.png)
